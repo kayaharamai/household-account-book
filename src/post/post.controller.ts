@@ -8,56 +8,28 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { Posts } from '@prisma/client';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostService } from './post.service';
-
-// const prisma = new PrismaClient();
-// @Controller('post')
-// export class PostController {
-//   // http://localhost:3005/post にてreturnのなかが返却される
-//   @Get(':id')
-//   async getPost(@Param('id') id): string {
-//     const { postId } = param;
-//     const postId = await prisma.post.findUnique({
-//       where: {
-//         id: Number(req.params.id),
-//       },
-//       // relationのときはinclude使用して取得
-//       include: {
-//         category: true,
-//       },
-//     });
-//     return postId;
-//   }
-// }
-
-// @Controller('post')
-// export class PostController {
-//   constructor(private postService: PostService) {}
-//   // 利用する Service が inject される
-//   @Get()
-//   async findMany(): Promise<> {
-//     return this.postService.findMany();
-//   }
-// }
 
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  createPost(@Body() createPostDto: CreatePostDto): any {
+  createPost(@Body() createPostDto: CreatePostDto): Promise<Posts> {
     return this.postService.createPost(createPostDto);
   }
 
   @Get()
-  getAllPost(): Promise<any> {
+  getAllPost(): Promise<Posts[]> {
     return this.postService.getPost();
   }
 
   @Get(':id')
-  getCategoryPost(@Param('id', ParseIntPipe) categoryId: number): Promise<any> {
+  getCategoryPost(
+    @Param('id', ParseIntPipe) categoryId: number,
+  ): Promise<Posts[]> {
     return this.postService.getCategoryPost(categoryId);
   }
 
@@ -71,10 +43,10 @@ export class PostController {
   //   return this.postService.getPostById(id);
   // }
 
-  // @Delete(':id')
-  // deletePost(@Param('id', ParseIntPipe) id: number): any {
-  //   return this.postService.deletePost(id);
-  // }
+  @Delete(':id')
+  deletePost(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.deletePost(id);
+  }
 
   @Patch(':id')
   updatePost(

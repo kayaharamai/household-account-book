@@ -1,16 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { Posts } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
-  private prisma: PrismaClient;
+  constructor(private prisma: PrismaService) {}
 
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
-  async createPost(createPostDto: CreatePostDto): Promise<any> {
+  async createPost(createPostDto: CreatePostDto): Promise<Posts> {
     const postItem: any = { ...createPostDto };
     const post = await this.prisma.post.create({
       data: {
@@ -24,7 +21,7 @@ export class PostService {
     return this.prisma.post.findMany();
   }
 
-  getPostById(id: number): Promise<any> {
+  getPostById(id: number): Promise<Posts> {
     return this.prisma.post.findUnique({
       where: {
         id,
@@ -35,7 +32,7 @@ export class PostService {
     });
   }
 
-  // //id以外を指定してPostを取得
+  //id以外を指定してPostを取得
   // getPostOne(content: string): Promise<any> {
   //   return this.prisma.post.findMany({
   //     where: {
@@ -46,7 +43,7 @@ export class PostService {
   //   });
   // }
 
-  getCategoryPost(categoryId: number): Promise<any> {
+  getCategoryPost(categoryId: number): Promise<Posts[]> {
     return this.prisma.post.findMany({
       where: {
         categoryId,
@@ -54,8 +51,8 @@ export class PostService {
     });
   }
 
-  async updatePost(id: number, createPostDto: CreatePostDto): Promise<any> {
-    const updateItem: any = { ...createPostDto };
+  async updatePost(id: number, createPostDto: CreatePostDto): Promise<Posts> {
+    const updateItem = { ...createPostDto };
     const update = await this.prisma.post.update({
       where: {
         id,
