@@ -21,10 +21,10 @@ export class PostService {
     return this.prisma.post.findMany();
   }
 
-  getPostById(id: number): Promise<Posts> {
-    return this.prisma.post.findUnique({
+  getPostById(authorId: number): Promise<Posts[]> {
+    return this.prisma.post.findMany({
       where: {
-        id,
+        authorId,
       },
       include: {
         category: true,
@@ -43,13 +43,13 @@ export class PostService {
   //   });
   // }
 
-  getCategoryPost(categoryId: number): Promise<Posts[]> {
-    return this.prisma.post.findMany({
-      where: {
-        categoryId,
-      },
-    });
-  }
+  // getCategoryPost(categoryId: number): Promise<Posts[]> {
+  //   return this.prisma.post.findMany({
+  //     where: {
+  //       categoryId,
+  //     },
+  //   });
+  // }
 
   async updatePost(id: number, createPostDto: CreatePostDto): Promise<Posts> {
     const updateItem = { ...createPostDto };

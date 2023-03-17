@@ -26,22 +26,22 @@ export class PostController {
     return this.postService.getPost();
   }
 
-  @Get(':id')
-  getCategoryPost(
-    @Param('id', ParseIntPipe) categoryId: number,
-  ): Promise<Posts[]> {
-    return this.postService.getCategoryPost(categoryId);
-  }
+  // @Get(':id')
+  // getCategoryPost(
+  //   @Param('id', ParseIntPipe) categoryId: number,
+  // ): Promise<Posts[]> {
+  //   return this.postService.getCategoryPost(categoryId);
+  // }
 
   // @Get('find')
   // getPostCategory(@Body('content') content: string): any {
   //   return this.postService.getPostOne(content);
   // }
 
-  // @Get(':id')
-  // getPost(@Param('id', ParseIntPipe) id: number): Promise<any> {
-  //   return this.postService.getPostById(id);
-  // }
+  @Get(':id')
+  getPost(@Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.postService.getPostById(id);
+  }
 
   @Delete(':id')
   deletePost(@Param('id', ParseIntPipe) id: number) {
