@@ -26,12 +26,12 @@ export class PostController {
     return this.postService.getPost();
   }
 
-  // @Get(':id')
-  // getCategoryPost(
-  //   @Param('id', ParseIntPipe) categoryId: number,
-  // ): Promise<Posts[]> {
-  //   return this.postService.getCategoryPost(categoryId);
-  // }
+  @Get('/category/:id')
+  getCategoryPost(
+    @Param('id', ParseIntPipe) categoryId: number,
+  ): Promise<Posts[]> {
+    return this.postService.getCategoryPost(categoryId);
+  }
 
   // @Get('find')
   // getPostCategory(@Body('content') content: string): any {

@@ -43,13 +43,16 @@ export class PostService {
   //   });
   // }
 
-  // getCategoryPost(categoryId: number): Promise<Posts[]> {
-  //   return this.prisma.post.findMany({
-  //     where: {
-  //       categoryId,
-  //     },
-  //   });
-  // }
+  getCategoryPost(categoryId: number): Promise<Posts[]> {
+    return this.prisma.post.findMany({
+      where: {
+        categoryId,
+      },
+      include: {
+        category: true,
+      },
+    });
+  }
 
   async updatePost(id: number, createPostDto: CreatePostDto): Promise<Posts> {
     const updateItem = { ...createPostDto };
