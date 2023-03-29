@@ -26,62 +26,86 @@ async function main() {
   ] = await Promise.all([
     prisma.category.create({
       data: {
+        id: 1,
         name: '食費',
+        color: '#FF996D',
       },
     }),
     prisma.category.create({
       data: {
+        id: 2,
         name: '日用品',
+        color: '#8a7a99',
       },
     }),
     prisma.category.create({
       data: {
+        id: 3,
         name: '衣服',
+        color: '#ccdfff ',
       },
     }),
     prisma.category.create({
       data: {
+        id: 4,
         name: '美容',
+        color: '#cccccc',
       },
     }),
     prisma.category.create({
       data: {
+        id: 5,
         name: '交際費',
+        color: '#ffccdf',
       },
     }),
     prisma.category.create({
       data: {
+        id: 6,
         name: '医療費',
+        color: '#708c7c',
       },
     }),
     prisma.category.create({
       data: {
+        id: 7,
         name: '通信費',
+        color: '#6ea8cc',
       },
     }),
     prisma.category.create({
       data: {
+        id: 8,
         name: '光熱費',
+        color: '#ffcc99',
       },
     }),
     prisma.category.create({
       data: {
+        id: 9,
         name: '交通費',
+        color: '#435443',
       },
     }),
     prisma.category.create({
       data: {
+        id: 10,
         name: '教育費',
+        color: '#facdc8 ',
       },
     }),
     prisma.category.create({
       data: {
+        id: 11,
         name: '住居費',
+        color: '#ccb8a3',
       },
     }),
     prisma.category.create({
       data: {
+        id: 12,
         name: 'その他',
+        color: '#cccccc',
       },
     }),
   ]);

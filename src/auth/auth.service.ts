@@ -1,4 +1,9 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -42,11 +47,19 @@ export class AuthService {
         email: dto.email,
       },
     });
-    if (!user) throw new ForbiddenException('Email or password incorrect');
+    if (!user)
+      throw new HttpException(
+        'Email or password incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
     // パスワードの比較
     const isValid = await bcrypt.compare(dto.password, user.password);
     // パスワードが不一致の場合
-    if (!isValid) throw new ForbiddenException('Email or password incorrect');
+    if (!isValid)
+      throw new HttpException(
+        'Email or password incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
 
     // メールアドレスとパスワードが両方とも一致していたら以下の処理
     return this.generateJwt(user.id, user.email);

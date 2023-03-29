@@ -6,7 +6,6 @@ import {
   HttpStatus,
   Res,
   Req,
-  Get,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -16,11 +15,6 @@ import { Csrf, Msg } from './interfaces/auth.interfaces';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
-  // @Get('/csrf')
-  // getCsrfToken(@Req() req: Request): Csrf {
-  //   return { csrfToken: req.csrfToken() };
-  // }
 
   @Post('signup')
   signUp(@Body() dto: LoginDto): Promise<Msg> {

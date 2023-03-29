@@ -17,7 +17,7 @@ export class PostService {
     return post;
   }
 
-  getPost() {
+  getPost(): Promise<Posts[]> {
     return this.prisma.post.findMany();
   }
 
@@ -31,17 +31,6 @@ export class PostService {
       },
     });
   }
-
-  //id以外を指定してPostを取得
-  // getPostOne(content: string): Promise<any> {
-  //   return this.prisma.post.findMany({
-  //     where: {
-  //       title: {
-  //         contains: content,
-  //       },
-  //     },
-  //   });
-  // }
 
   getCategoryPost(categoryId: number): Promise<Posts[]> {
     return this.prisma.post.findMany({
@@ -67,7 +56,7 @@ export class PostService {
     return update;
   }
 
-  deletePost(id: number) {
+  deletePost(id: number): Promise<Posts> {
     return this.prisma.post.delete({
       where: {
         id,

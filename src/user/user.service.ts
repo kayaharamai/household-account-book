@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
@@ -36,7 +37,7 @@ export class UserService {
     });
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number): Promise<User> {
     return this.prisma.user.delete({
       where: {
         id,
@@ -44,14 +45,16 @@ export class UserService {
     });
   }
 
-  async updateUser(id: number, createUserDto: CreateUserDto): Promise<User> {
-    const updateItem = { ...createUserDto };
+  async updateUser(id: number, createUserDto: UpdateUserDto): Promise<User> {
+    const updateEmail = createUserDto.email;
+    const hashed = await bcrypt.hash(createUserDto.password, 12);
     const update = await this.prisma.user.update({
       where: {
         id,
       },
       data: {
-        ...updateItem,
+        email: updateEmail,
+        password: hashed,
       },
     });
     return update;

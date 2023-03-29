@@ -5,7 +5,6 @@ import {
   IsNotEmpty,
   IsPositive,
   IsString,
-  IsUrl,
 } from 'class-validator';
 
 export class CreatePostDto {

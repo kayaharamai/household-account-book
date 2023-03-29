@@ -33,18 +33,13 @@ export class PostController {
     return this.postService.getCategoryPost(categoryId);
   }
 
-  // @Get('find')
-  // getPostCategory(@Body('content') content: string): any {
-  //   return this.postService.getPostOne(content);
-  // }
-
   @Get(':id')
-  getPost(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  getPost(@Param('id', ParseIntPipe) id: number): Promise<Posts[]> {
     return this.postService.getPostById(id);
   }
 
   @Delete(':id')
-  deletePost(@Param('id', ParseIntPipe) id: number) {
+  deletePost(@Param('id', ParseIntPipe) id: number): Promise<Posts> {
     return this.postService.deletePost(id);
   }
 
@@ -52,7 +47,7 @@ export class PostController {
   updatePost(
     @Param('id', ParseIntPipe) id: number,
     @Body() createPostDto: CreatePostDto,
-  ): any {
+  ): Promise<Posts> {
     return this.postService.updatePost(id, createPostDto);
   }
 }
