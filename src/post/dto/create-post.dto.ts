@@ -1,11 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsDateString,
-  IsInt,
-  IsNotEmpty,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsDateString, IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsString()
@@ -29,8 +23,10 @@ export class CreatePostDto {
   updatedAt: Date;
 
   @IsInt()
-  @IsNotEmpty()
-  @IsPositive()
   @Type(() => Number)
-  price: number;
+  expence: number;
+
+  @IsInt()
+  @Type(() => Number)
+  income: number;
 }

@@ -23,6 +23,12 @@ async function main() {
     category10,
     category11,
     category12,
+    category13,
+    category14,
+    category15,
+    category16,
+    category17,
+    category18,
   ] = await Promise.all([
     prisma.category.create({
       data: {
@@ -106,6 +112,48 @@ async function main() {
         id: 12,
         name: 'その他',
         color: '#cccccc',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 13,
+        name: '給料',
+        color: '#2E8B57',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 14,
+        name: 'おこづかい',
+        color: '#FF773E',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 15,
+        name: '賞与',
+        color: '#FA8072',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 16,
+        name: '副業',
+        color: '#5D99FF',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 17,
+        name: '投資',
+        color: '#CD853F',
+      },
+    }),
+    prisma.category.create({
+      data: {
+        id: 18,
+        name: '臨時収入',
+        color: '#FF5192',
       },
     }),
   ]);

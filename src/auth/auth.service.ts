@@ -49,7 +49,7 @@ export class AuthService {
     });
     if (!user)
       throw new HttpException(
-        'Email or password incorrect',
+        'Eメールアドレスまたはパスワードが間違っています',
         HttpStatus.BAD_REQUEST,
       );
     // パスワードの比較
@@ -57,7 +57,7 @@ export class AuthService {
     // パスワードが不一致の場合
     if (!isValid)
       throw new HttpException(
-        'Email or password incorrect',
+        'Eメールアドレスまたはパスワードが間違っています',
         HttpStatus.BAD_REQUEST,
       );
 
